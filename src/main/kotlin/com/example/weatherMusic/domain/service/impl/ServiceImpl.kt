@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service
 @Service
 class ServiceImpl(private val weatherAPI: WeatherAPI) : ServiceRecoommendation {
 
-    var clientID = ""
+    var clientID = "e8cc3cc291914424ae000bb06941eb2e"
 
-    var clientSecret = ""
+    var clientSecret = "30e26d51ca454c5fb2dd9a68cf641adc"
 
-    var weatherAPIKey = ""
+    var weatherAPIKey = "8ff8f1870902247f5bdee9d38be4b4ba"
 
     override fun recommendSongs(lat: String, lon: String) : List<Song>{
         val response = weatherAPI.recoverByCoords(lat,lon,weatherAPIKey,"metric")

@@ -20,7 +20,7 @@ class MusicRecomendationController(val serviceImpl: ServiceImpl) {
         }
     }
 
-    @RequestMapping(method = [RequestMethod.GET],value = ["/"])
+    @RequestMapping(method = [RequestMethod.GET],value = ["/coords"])
     fun findPlaylistByCityCoords(@RequestParam(required = true,value = "lat") lat : String,@RequestParam(required = true,value = "lon") lon : String ) : List<Song>{
 
         return try {
