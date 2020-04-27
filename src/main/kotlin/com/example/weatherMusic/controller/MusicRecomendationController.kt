@@ -2,8 +2,6 @@ package com.example.weatherMusic.controller
 
 import com.example.weatherMusic.domain.model.Song
 import com.example.weatherMusic.domain.service.impl.ServiceImpl
-import com.wrapper.spotify.SpotifyApi
-import com.wrapper.spotify.requests.data.search.simplified.SearchPlaylistsRequest
 import org.springframework.web.bind.annotation.*
 
 
@@ -12,13 +10,24 @@ import org.springframework.web.bind.annotation.*
 class MusicRecomendationController(val serviceImpl: ServiceImpl) {
 
     @RequestMapping(method = [RequestMethod.GET],value = ["/"])
-    fun test(@RequestParam(required = true,value = "city") city : String ) : List<Song>{
+    fun findPlaylistByCityName(@RequestParam(required = true,value = "city") city : String ) : List<Song>{
 
-        try {
+        return try {
             val songsList = serviceImpl.recommendSongsCity(city)
-            return songsList
+            songsList
         } catch (e:Exception) {
-            return ArrayList<Song>()
+            ArrayList<Song>()
+        }
+    }
+
+    @RequestMapping(method = [RequestMethod.GET],value = ["/"])
+    fun findPlaylistByCityCoords(@RequestParam(required = true,value = "lat") lat : String,@RequestParam(required = true,value = "lon") lon : String ) : List<Song>{
+
+        return try {
+            val songsList = serviceImpl.recommendSongs(lat,lon)
+            songsList
+        } catch (e:Exception) {
+            ArrayList<Song>()
         }
     }
 }
