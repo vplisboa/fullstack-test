@@ -1,0 +1,31 @@
+<div class="card my-5">
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" [(ngModel)]="city.name"
+               class="form-control"
+               id="name"
+               name="name"
+               placeholder="Enter your name">
+      </div>
+      <div class="form-group">
+        <label for="lat">Lat</label>
+        <input type="text" [(ngModel)]="city.lat"
+               class="form-control"
+               id="lat"
+               name="lat"
+               placeholder="Enter your email address">
+      </div>
+      <div class="form-group">
+        <label for="lon">Lon</label>
+        <input type="text" [(ngModel)]="city.lon"
+               class="form-control"
+               id="lon"
+               name="lon"
+               placeholder="Enter your email address">
+      </div>
+      <button type="submit" class="btn btn-info">Submit</button>
+    </form>
+  </div>
+</div>
