@@ -30,7 +30,6 @@ export class SongListComponent implements OnInit {
 
   cityByName(params: ParamMap) {
     this.city = params.get('city')
-    console.log('olha a cidade ' + this.city)
     this.songService.findAll(this.city).subscribe(data => {
       this.songs = data;
     });
@@ -39,7 +38,6 @@ export class SongListComponent implements OnInit {
   cityByCoords(params: ParamMap) {
     this.lat = params.get('lat')
     this.lon = params.get('lon')
-    console.log('olha a coordenada ' + this.lat + '/' + this.lon)
     this.songService.findByCoords(this.lat, this.lon).subscribe(data => {
       this.songs = data;
     });

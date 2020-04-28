@@ -4,9 +4,9 @@ import {SongListComponent} from './song-list/song-list.component';
 import {CityFormComponent} from './city-form/city-form.component';
 
 const routes: Routes = [
-  { path: 'users/:city', component: SongListComponent },
+  { path: 'city/:city', component: SongListComponent },
   { path: 'song/coords/:lat/:lon', component: SongListComponent },
-  {path: 'test', component: CityFormComponent}
+  {path: 'search', component: CityFormComponent}
 ];
 
 @NgModule({

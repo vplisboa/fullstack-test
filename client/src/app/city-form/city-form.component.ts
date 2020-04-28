@@ -20,7 +20,7 @@ export class CityFormComponent implements OnInit {
     console.log(this.city)
     if (this.city.name != null) {
       this.songService.findAll(this.city.name);
-      this.router.navigate(['/users/' + this.city.name]);
+      this.router.navigate(['/city/' + this.city.name]);
     }
     if ( this.city.lat != null && this.city.lon != null) {
       this.songService.findByCoords(this.city.lat, this.city.lon);
