@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam
 
 @FeignClient("weatherAPI",url = "api.openweathermap.org/data/2.5/")
 interface WeatherAPI {
-    //8ff8f1870902247f5bdee9d38be4b4ba
+
     @RequestMapping(method =[RequestMethod.GET],value = ["/weather"])
     fun recoverByCity(@RequestParam("q") city: String, @RequestParam("appid") key : String,@RequestParam("units") units:String): Map<String, Any>
 

@@ -4,7 +4,7 @@ import com.example.weatherMusic.domain.model.Song
 
 interface ServiceRecoommendation {
 
-    fun recommendSongs(lat: String, long: String) : List<Song>
+    fun recommendSongs(lat: String, lon: String) : List<Song>
 
     fun recommendSongsCity(city: String) : List<Song>
 }

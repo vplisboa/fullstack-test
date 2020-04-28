@@ -16,7 +16,7 @@ class MusicRecomendationController(val serviceImpl: ServiceImpl) {
             val songsList = serviceImpl.recommendSongsCity(city)
             songsList
         } catch (e:Exception) {
-            ArrayList<Song>()
+            ArrayList()
         }
     }
 

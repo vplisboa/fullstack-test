@@ -2,38 +2,41 @@ package com.example.weatherMusic.domain.service.impl
 
 import com.example.weatherMusic.domain.model.Song
 import com.example.weatherMusic.domain.service.ServiceRecoommendation
-import com.example.weatherMusic.infrastructure.SongFactory
-import com.example.weatherMusic.infrastructure.WeatherAPI
+import com.example.weatherMusic.infrastructure.*
 import com.wrapper.spotify.SpotifyApi
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
 class ServiceImpl(private val weatherAPI: WeatherAPI) : ServiceRecoommendation {
 
-    var clientID = "e8cc3cc291914424ae000bb06941eb2e"
+    @Value("\${spotify.clientId}")
+    lateinit var clientId : String
 
-    var clientSecret = "30e26d51ca454c5fb2dd9a68cf641adc"
+    @Value("\${spotify.clientSecret}")
+    lateinit var clientSecret : String
 
-    var weatherAPIKey = "8ff8f1870902247f5bdee9d38be4b4ba"
+    @Value("\${weatherAPI.key}")
+    lateinit var weatherAPIKey :String
 
     override fun recommendSongs(lat: String, lon: String) : List<Song>{
-        val response = weatherAPI.recoverByCoords(lat,lon,weatherAPIKey,"metric")
+        val response = weatherAPI.recoverByCoords(lat,lon,weatherAPIKey,UNIT)
 
         return getSongsList(response)
     }
 
     override fun recommendSongsCity(city: String) : List<Song> {
-        val response = weatherAPI.recoverByCity(city,weatherAPIKey,"metric")
+        val response = weatherAPI.recoverByCity(city,weatherAPIKey,UNIT)
 
         return getSongsList(response)
     }
 
     private fun findSongGenre(temperature: Double): String {
         return when {
-            temperature >= 30 -> "party"
-            15 <= temperature && temperature < 30 -> "pop"
-            10 <= temperature && temperature < 15 -> "rock"
-            else -> "classical"
+            temperature >= 30 -> PARTY
+            15 <= temperature && temperature < 30 -> POP
+            10 <= temperature && temperature < 15 -> ROCK
+            else -> CLASSICAL
         }
     }
 
@@ -46,7 +49,7 @@ class ServiceImpl(private val weatherAPI: WeatherAPI) : ServiceRecoommendation {
         val temperature = weatherInformation["temp"] as Double
 
         val spotifyApi = SpotifyApi.Builder()
-                .setClientId(clientID)
+                .setClientId(clientId)
                 .setClientSecret(clientSecret)
                 .build()
 
@@ -59,8 +62,7 @@ class ServiceImpl(private val weatherAPI: WeatherAPI) : ServiceRecoommendation {
         val songGenre = findSongGenre(temperature);
         val playlistList = spotifyApi.getCategoriesPlaylists(songGenre).build().execute().items
         val trackList = spotifyApi.getPlaylist(playlistList[findRandomPlaylist(playlistList.size)].id).build().execute().tracks.items
-        val songsList = SongFactory.generateSongList(trackList)
 
-        return songsList
+        return SongFactory.generateSongList(trackList)
     }
 }
