@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*
 
 
 @RestController
-@CrossOrigin(origins = ["http://localhost:4200"])
+@CrossOrigin(origins = ["*"])
 class MusicRecomendationController(val serviceImpl: ServiceImpl) {
 
     @RequestMapping(method = [RequestMethod.GET],value = ["/"])
